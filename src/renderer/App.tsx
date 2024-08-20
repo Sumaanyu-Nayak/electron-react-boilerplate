@@ -1,50 +1,29 @@
 import { MemoryRouter as Router, Routes, Route } from 'react-router-dom';
 import icon from '../../assets/icon.svg';
 import './App.css';
+import ExcelReader from '../components/excelRead';
+import { useState } from 'react';
 
-function Hello() {
-  return (
-    <div>
-      <div className="Hello">
-        <img width="200" alt="icon" src={icon} />
-      </div>
-      <h1>electron-react-boilerplate</h1>
-      <div className="Hello">
-        <a
-          href="https://electron-react-boilerplate.js.org/"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="books">
-              📚
-            </span>
-            Read our docs
-          </button>
-        </a>
-        <a
-          href="https://github.com/sponsors/electron-react-boilerplate"
-          target="_blank"
-          rel="noreferrer"
-        >
-          <button type="button">
-            <span role="img" aria-label="folded hands">
-              🙏
-            </span>
-            Donate
-          </button>
-        </a>
-      </div>
-    </div>
-  );
-}
+// function Hello() {
+//   return (
+
+      
+//   );
+// }
+
 
 export default function App() {
+  const options : Intl.DateTimeFormatOptions = { hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit' };
+  const [currentTimePass, setCurrentTime] = useState(
+    new Date().toLocaleTimeString("en-GB",options)
+  )
+  const [date, setDate] = useState(
+    new Date().toLocaleDateString()
+  )
+  setInterval(() => {
+    setCurrentTime(new Date().toLocaleTimeString("en-GB", options))
+  }, 100)
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Hello />} />
-      </Routes>
-    </Router>
+    <ExcelReader date={date} currentTimePass={currentTimePass}/>
   );
 }
